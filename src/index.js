@@ -2,12 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import NavBar from './components/NavBar';
+import reducer from './reducers/reducer.js';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
 // import * as serviceWorker from './serviceWorker';
 
+const store = createStore(reducer);
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <NavBar />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
