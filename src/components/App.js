@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch, Redirect } from 'react-router-dom';
-import NavBar from './NavBar';
+import NavBarContainer from '../containers/NavBarContianer';
 import JerseyListContainer from '../containers/JerseyListContainer.js';
-import MyCart from './MyCart';
+import MyCartContainer from '../containers/MyCartContainer';
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
-        <NavBar />
+        <NavBarContainer />
         <Switch>
-          <Redirect exact path="/" to="/about" />
-          <Route path="/about" component={JerseyListContainer} />
-          <Route path="/cart" component={MyCart} />
+          <Redirect exact path="/" to="/home" />
+          <Route path="/home" component={JerseyListContainer} />
+          <Route path="/cart" component={MyCartContainer} />
         </Switch>
       </div>
     </BrowserRouter>
