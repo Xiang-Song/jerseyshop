@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
-import NavBar from './components/NavBar';
 import reducer from './reducers/reducer.js';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
+
+
 // import * as serviceWorker from './serviceWorker';
 
 const store = createStore(reducer);
+store.subscribe(() => {
+  console.log(store.getState());
+});
 
 ReactDOM.render(
   <Provider store={store}>
-    <NavBar />
+    <App />
   </Provider>,
   document.getElementById('root')
 );
