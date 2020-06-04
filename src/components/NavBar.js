@@ -1,7 +1,7 @@
 import React from "react";
 import NavTab from "./NavTab.js";
 
-const NavBar = () => {
+const NavBar = (props) => {
     var style = {
         display: "flex",
         justifyContent: "flex-end"
@@ -11,12 +11,16 @@ const NavBar = () => {
         justifyContent: "center",
         fontweight: "bold"
     }
+    var qtStyle = {
+        margin: "10px"
+    }
   return (
       <div>
           <h1 style={headStyle}> Soccer Jersey Shop</h1>
           <div style = {style}>
-            <NavTab to="/about" label="Continue Shopping" />
+            <NavTab to="/home" label="Continue Shopping" />
             <NavTab to="/cart" label="My Cart" />
+            <p style={qtStyle}>{props.totalQuantity}</p>
           </div>
       </div>
     
