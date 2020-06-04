@@ -1,26 +1,24 @@
 import React from 'react';
 
 class JerseyList extends React.Component {
-    // handleClick = (id)=> {
-    //     this.props.addToCart(id);
-    // }
+    
 
     render () {
-        
+        var cardStyle = {
+            width: "27%",
+            height: "50%",
+            background: "beige",
+            margin: "20px"
+        }
+        var imgStyle = {
+            width: "100%",
+        }
+        var shopStyle = {
+            display: "flex",
+            justifyContent: "space-between"
+        }
         let itemList = this.props.items.map(item =>{
-            var cardStyle = {
-                width: "27%",
-                height: "50%",
-                background: "beige",
-                margin: "20px"
-            }
-            var imgStyle = {
-                width: "100%",
-            }
-            var shopStyle = {
-                display: "flex",
-                justifyContent: "space-between"
-            }
+           
             return (
                 <div style={cardStyle} key={item.id}>
                     <div>
