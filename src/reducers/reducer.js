@@ -8,7 +8,7 @@ import mut from '../JerseyImg/MU-third.JPG';
 import rma from '../JerseyImg/RM-away.JPG';
 import rmh from '../JerseyImg/RM-home.JPG';
 import ttn from '../JerseyImg/Tottenham.JPG';
-import { ADD_TO_CART, DELETE_ITEM } from '../constants/constants.js';
+import { ADD_TO_CART, DELETE_ITEM, ADD_QUANTITY, SUB_QUANTITY } from '../constants/constants.js';
 
 const initState = {
     items:[
@@ -24,7 +24,8 @@ const initState = {
         {id:10, title:"Manchester City Home Jersey", price:59.99, img:mct}
     ],
     addedItems: [],
-    total: 0
+    total: 0,
+    totalQuantity: 0
 }
 
 const reducer = (state = initState, action) => {
@@ -37,6 +38,7 @@ const reducer = (state = initState, action) => {
                 return {
                     ...state,
                     total: state.total + selectedItem.price,
+                    totalQuantity: state.totalQuantity + 1,
                 };
             }
             else {
@@ -45,9 +47,37 @@ const reducer = (state = initState, action) => {
                     ...state,
                     addedItems: [...state.addedItems, selectedItem],
                     total: state.total + selectedItem.price,
+                    totalQuantity: state.totalQuantity + 1,
                 };
             }
-            
+        
+        case DELETE_ITEM:
+            let delItem = state.addedItems.find(item=> item.id === action.id);
+            return {
+                ...state,
+                addedItems: [...state.addedItems].filter(item => item.id !== action.id),
+                total: state.total - (delItem.price * delItem.quantity),
+                totalQuantity: state.totalQuantity -1
+            }
+
+        case ADD_QUANTITY:
+            let addedItem = state.addedItems.find(item=> item.id === action.id);
+            addedItem.quantity += 1;
+            return {
+                ...state,
+                total: state.total+addedItem.price,
+                totalQuantity: state.totalQuantity +1
+            }
+
+        case SUB_QUANTITY:
+            let subedItem = state.addedItems.find(item=> item.id === action.id);
+            subedItem.quantity -= 1;
+            return {
+                ...state,
+                total: state.total-subedItem.price,
+                totalQuantity: state.totalQuantity -1
+            }
+
         default: {
             return state;
         }
