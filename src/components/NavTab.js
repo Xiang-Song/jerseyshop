@@ -3,13 +3,14 @@ import { NavLink } from "react-router-dom";
 
 const NavTab = props => {
   var activeStyle = {
-    color: "green",
+    color: "#696969",
     fontWeight: "bold"
   };
 
   var navStyle = {
     margin: "10px",
-    color: "red"
+    color: "#8B0000",
+    textDecoration: "none"
   };
   return (
     <NavLink style={navStyle} activeStyle={activeStyle} to={props.to}>
