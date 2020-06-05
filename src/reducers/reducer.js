@@ -8,7 +8,12 @@ import mut from '../JerseyImg/MU-third.JPG';
 import rma from '../JerseyImg/RM-away.JPG';
 import rmh from '../JerseyImg/RM-home.JPG';
 import ttn from '../JerseyImg/Tottenham.JPG';
-import { ADD_TO_CART, DELETE_ITEM, ADD_QUANTITY, SUB_QUANTITY } from '../constants/constants.js';
+import { ADD_TO_CART, 
+         DELETE_ITEM, 
+         ADD_QUANTITY, 
+         SUB_QUANTITY, 
+         ADD_CODE,
+         APPLY_CODE } from '../constants/constants.js';
 
 const initState = {
     items:[
@@ -25,7 +30,8 @@ const initState = {
     ],
     addedItems: [],
     total: 0,
-    totalQuantity: 0
+    totalQuantity: 0,
+    code: ''
 }
 
 const reducer = (state = initState, action) => {
@@ -57,7 +63,7 @@ const reducer = (state = initState, action) => {
                 ...state,
                 addedItems: [...state.addedItems].filter(item => item.id !== action.id),
                 total: state.total - (delItem.price * delItem.quantity),
-                totalQuantity: state.totalQuantity -1
+                totalQuantity: state.totalQuantity -delItem.quantity
             }
 
         case ADD_QUANTITY:
@@ -76,6 +82,30 @@ const reducer = (state = initState, action) => {
                 ...state,
                 total: state.total-subedItem.price,
                 totalQuantity: state.totalQuantity -1
+            }
+
+        case ADD_CODE:
+            return {
+                ...state,
+                code: action.code
+            }
+        
+        case APPLY_CODE:
+            let originalTotal = 0;
+            for (let item of state.addedItems) {
+                originalTotal += item.price * item.quantity
+            };
+            if (state.code === "onsale" && state.total > 200 && state.total == originalTotal) {
+                return {
+                    ...state,
+                    total: state.total*0.85
+                }
+            }
+            else if (state.total < originalTotal) {
+                alert("Coupon code can only be applied once!")
+            }
+            else{
+                return {...state}
             }
 
         default: {

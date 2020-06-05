@@ -1,6 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import PromotionContainer from '../containers/PromotionContainer';
 
 
 class MyCart extends React.Component {
@@ -50,6 +49,7 @@ class MyCart extends React.Component {
                 {addedItems}
                 <hr/>
                 <p style={priceStyle}><b>Your total:&nbsp;&nbsp;</b> ${(this.props.total).toFixed(2)}</p>
+                <PromotionContainer />
             </div>
         )
     }
