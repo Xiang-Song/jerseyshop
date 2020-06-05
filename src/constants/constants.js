@@ -5,10 +5,6 @@ export const SUB_QUANTITY = 'SUB_QUANTITY';
 export const ADD_CODE = "ADD_CODE";
 export const APPLY_CODE = "APPLY_CODE";
 
-// module.exports = {
-// ADD_TO_CART,
-// DELETE_ITEM,
-// ADD_QUANTITY,
-// SUB_QUANTITY
-// };
+
+
 
