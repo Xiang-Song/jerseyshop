@@ -35,6 +35,10 @@ const initState = {
 }
 
 const reducer = (state = initState, action) => {
+    let originalTotal = 0;
+            for (let item of state.addedItems) {
+                originalTotal += item.price * item.quantity
+            };
     switch (action.type) {
         case ADD_TO_CART:
             let selectedItem = state.items.find(item => item.id === action.id);
@@ -43,8 +47,8 @@ const reducer = (state = initState, action) => {
                 selectedItem.quantity += 1;
                 return {
                     ...state,
-                    total: state.total + selectedItem.price,
-                    totalQuantity: state.totalQuantity + 1,
+                    total: originalTotal + selectedItem.price,
+                    totalQuantity: state.totalQuantity + 1, 
                 };
             }
             else {
@@ -52,7 +56,7 @@ const reducer = (state = initState, action) => {
                 return {
                     ...state,
                     addedItems: [...state.addedItems, selectedItem],
-                    total: state.total + selectedItem.price,
+                    total: originalTotal + selectedItem.price,
                     totalQuantity: state.totalQuantity + 1,
                 };
             }
@@ -62,7 +66,7 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 addedItems: [...state.addedItems].filter(item => item.id !== action.id),
-                total: state.total - (delItem.price * delItem.quantity),
+                total: originalTotal - (delItem.price * delItem.quantity),
                 totalQuantity: state.totalQuantity -delItem.quantity
             }
 
@@ -71,7 +75,7 @@ const reducer = (state = initState, action) => {
             addedItem.quantity += 1;
             return {
                 ...state,
-                total: state.total+addedItem.price,
+                total: originalTotal+addedItem.price,
                 totalQuantity: state.totalQuantity +1
             }
 
@@ -80,7 +84,7 @@ const reducer = (state = initState, action) => {
             subedItem.quantity -= 1;
             return {
                 ...state,
-                total: state.total-subedItem.price,
+                total: originalTotal-subedItem.price,
                 totalQuantity: state.totalQuantity -1
             }
 
@@ -91,10 +95,7 @@ const reducer = (state = initState, action) => {
             }
         
         case APPLY_CODE:
-            let originalTotal = 0;
-            for (let item of state.addedItems) {
-                originalTotal += item.price * item.quantity
-            };
+            
             if (state.code === "onsale" && state.total > 200 && state.total == originalTotal) {
                 return {
                     ...state,
@@ -103,6 +104,9 @@ const reducer = (state = initState, action) => {
             }
             else if (state.total < originalTotal) {
                 alert("Coupon code can only be applied once!")
+            }
+            else if (state.total < 200) {
+                alert("Your order is not qualify the 15% off")
             }
             else{
                 return {...state}
