@@ -7,12 +7,13 @@ class Checkout extends React.Component {
             justifyContent: "space-around"
         }
         var divStyle = {
-           
+            display: "flex",
+            justifyContent: "flex-end"
         }
         return (
             <div>
             <div style={style}>
-                <div style = {divStyle}>
+                <div>
                 <h3>Billing Details</h3>
                 <label>First & Last Name</label><br/>
                 <input name = 'name' value = {this.props.billing.name} onChange={(e) => {this.props.addBillingInfo(e)}} style = {{width:"30vw"}}></input><br/><br/>
@@ -43,9 +44,9 @@ class Checkout extends React.Component {
                 <input name = 'sZip' value={this.props.shipping.sZip} onChange= {(e) => {this.props.addShippingInfo(e)}} style = {{width:"30vw"}}></input><br/><br/>
                 </div>
             </div>
-            <div> Your Total is ${(this.props.total).toFixed(2)}</div>
-            <div><button onClick = {(total)=>{this.props.onCheckout(total)}}>Place Order</button></div>
-            <p>{this.props.confirmInfo}</p>
+            <div style={divStyle}> Your Total is ${(this.props.total).toFixed(2)}</div>
+            <div style={divStyle}><button onClick = {(total)=>{this.props.onCheckout(total)}}>Place Order</button></div>
+            <p style={{color:"red"}}>{this.props.confirmInfo}</p>
             </div>
             
         )
