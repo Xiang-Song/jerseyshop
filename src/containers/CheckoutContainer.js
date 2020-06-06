@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Checkout from '../components/Checkout';
+import onCheckout from '../actions/onCheckout';
 
 const mapStateToProps = (state)=>{
     return {
@@ -7,15 +8,15 @@ const mapStateToProps = (state)=>{
     }
   }
 
-// const mapDispatchToProps = (dispatch) =>{
+const mapDispatchToProps = (dispatch) =>{
     
-//     return{
-//         addToCart: (id)=>{dispatch(addToCart(id));
-//         }
-//     }
+    return{
+        onCheckout: (id)=>{dispatch(onCheckout(id));
+        }
+    }
 
-// }
+}
 
-const CheckoutContainer = connect(mapStateToProps)(Checkout);
+const CheckoutContainer = connect(mapStateToProps, mapDispatchToProps)(Checkout);
 
 export default CheckoutContainer;

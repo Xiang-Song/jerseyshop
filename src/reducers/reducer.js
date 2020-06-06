@@ -13,7 +13,8 @@ import { ADD_TO_CART,
          ADD_QUANTITY, 
          SUB_QUANTITY, 
          ADD_CODE,
-         APPLY_CODE } from '../constants/constants.js';
+         APPLY_CODE, 
+         CHECK_OUT } from '../constants/constants.js';
 
 const initState = {
     items:[
@@ -31,7 +32,9 @@ const initState = {
     addedItems: [],
     total: 0,
     totalQuantity: 0,
-    code: ''
+    code: '',
+    billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: ''},
+    payment: {cardNumber: '', expDate: '', securityCode: '', sAddress: '', sState: '', sZip: ''}
 }
 
 const reducer = (state = initState, action) => {
@@ -110,6 +113,14 @@ const reducer = (state = initState, action) => {
             }
             else{
                 return {...state}
+            }
+
+        case CHECK_OUT:
+            return {
+                ...state,
+                addedItems: [],
+                totalQuantity: 0,
+                total: 0
             }
 
         default: {

@@ -52,7 +52,7 @@ class MyCart extends React.Component {
                 <p style={priceStyle}><b>Your total:&nbsp;&nbsp;</b> ${(this.props.total).toFixed(2)}</p>
                 <PromotionContainer />
                 <p style={priceStyle}><button 
-                disabled={this.props.total === 0
+                disabled={this.props.total == 0
                  }> <Link to = "/checkout" style = {{textDecoration: "none", color: "black"}}>
                      Checkout</Link></button></p>
             </div>
