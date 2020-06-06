@@ -17,9 +17,6 @@ class JerseyList extends React.Component {
             display: "flex",
             justifyContent: "space-between"
         }
-        var inputStyle={
-            width:"50%"
-        }
         let itemList = this.props.items.map(item =>{
            
             return (
