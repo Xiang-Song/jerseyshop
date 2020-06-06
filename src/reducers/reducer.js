@@ -14,7 +14,9 @@ import { ADD_TO_CART,
          SUB_QUANTITY, 
          ADD_CODE,
          APPLY_CODE, 
-         CHECK_OUT } from '../constants/constants.js';
+         CHECK_OUT,
+         ADD_BILLING_INFO,
+         ADD_SHIPPING_INFO } from '../constants/constants.js';
 
 const initState = {
     items:[
@@ -33,8 +35,9 @@ const initState = {
     total: 0,
     totalQuantity: 0,
     code: '',
-    billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: ''},
-    payment: {cardNumber: '', expDate: '', securityCode: '', sAddress: '', sState: '', sZip: ''}
+    billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: '', cardNumber: '', expDate: '', securityCode: ''},
+    shipping: {sAddress: '', sState: '', sZip: ''},
+    confirmInfo: ''
 }
 
 const reducer = (state = initState, action) => {
@@ -52,6 +55,7 @@ const reducer = (state = initState, action) => {
                     ...state,
                     total: originalTotal + selectedItem.price,
                     totalQuantity: state.totalQuantity + 1, 
+                    confirmInfo: ''
                 };
             }
             else {
@@ -61,6 +65,7 @@ const reducer = (state = initState, action) => {
                     addedItems: [...state.addedItems, selectedItem],
                     total: originalTotal + selectedItem.price,
                     totalQuantity: state.totalQuantity + 1,
+                    confirmInfo: ''
                 };
             }
         
@@ -70,7 +75,8 @@ const reducer = (state = initState, action) => {
                 ...state,
                 addedItems: [...state.addedItems].filter(item => item.id !== action.id),
                 total: originalTotal - (delItem.price * delItem.quantity),
-                totalQuantity: state.totalQuantity -delItem.quantity
+                totalQuantity: state.totalQuantity -delItem.quantity,
+                confirmInfo: ''
             }
 
         case ADD_QUANTITY:
@@ -79,7 +85,8 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 total: originalTotal+addedItem.price,
-                totalQuantity: state.totalQuantity +1
+                totalQuantity: state.totalQuantity +1,
+                confirmInfo: ''
             }
 
         case SUB_QUANTITY:
@@ -88,43 +95,62 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 total: originalTotal-subedItem.price,
-                totalQuantity: state.totalQuantity -1
+                totalQuantity: state.totalQuantity -1,
+                confirmInfo: ''
             }
 
         case ADD_CODE:
             return {
                 ...state,
-                code: action.code
+                code: action.code,
+                confirmInfo: ''
             }
         
         case APPLY_CODE:
             
-            if (state.code === "onsale" && state.total > 200 && state.total == originalTotal) {
+            if (state.code === "onsale" && state.total > 200 && state.total > originalTotal-1) {
                 return {
                     ...state,
-                    total: state.total*0.85
+                    total: state.total*0.85,
+                    confirmInfo: ''
                 }
-            }
-            else if (state.total < originalTotal) {
-                alert("Coupon code can only be applied once!")
-            }
-            else if (state.total < 200) {
-                alert("Your order is not qualify the 15% off")
             }
             else{
                 return {...state}
             }
+        
+        case ADD_BILLING_INFO:
+            return {
+                ...state,
+                billing: {...state.billing, [action.name]: action.value},
+                confirmInfo: ''
+            }
+
+        case ADD_SHIPPING_INFO:
+            
+            return {
+                ...state,
+                shipping: {...state.shipping, [action.name]: action.value},
+                confirmInfo: ''
+            }
 
         case CHECK_OUT:
+            let cName = state.billing.name;
+            let cAddress = state.shipping.sAddress;
+            let cState = state.shipping.sState;
+            let cZip = state.shipping.sZip
             return {
                 ...state,
                 addedItems: [],
                 totalQuantity: 0,
-                total: 0
-            }
+                total: 0,
+                billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: '', cardNumber: '', expDate: '', securityCode: ''},
+                shipping: {sAddress: '', sState: '', sZip: ''},
+                confirmInfo: cName + ", thank you for your order, We will ship your order to " + cAddress+', ' + cState+ ', ' + cZip+ ', ' + 'with in 2 days.'
+            }    
 
         default: {
-            return state;
+            return state
         }
     }
 }
