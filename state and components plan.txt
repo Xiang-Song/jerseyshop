@@ -1,0 +1,46 @@
+ 
+1. state tree: 
+
+{
+ items:[
+        {id:1, title:"Manchester United Away Jersey", price:59.99, img:mua},
+        {id:2, title:"Manchester United Third Jersey", price:59.99, img:mut},
+        {id:3, title:"Real Madrid Away Jersey", price:69.99, img:rma},
+        {id:4, title:"Real Madrid Home Jersey", price:79.99, img:rmh},
+        {id:5, title:"Arsenal Away Jersey", price:59.99, img:asa},
+        {id:6, title:"Arsenal Home Jersey", price:69.99, img:ash},
+        {id:7, title:"LiverPool Home Jersey", price:69.99, img:liv},
+        {id:8, title:"Tottenham Home Jersey", price:59.99, img:ttn},
+        {id:9, title:"Chelsea Home Jersey", price:59.99, img:che},
+        {id:10, title:"Manchester City Home Jersey", price:59.99, img:mct}
+    ],
+    addedItems: [],
+    total: 0,
+    totalQuantity: 0,
+    code: '',
+    billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: '', cardNumber: '', expDate: '', securityCode: ''},
+    shipping: {sAddress: '', sState: '', sZip: ''},
+    confirmInfo: ''
+  }
+
+
+2. actions:
+
+addBillingInfo.js
+addCode.js
+addQuantity.js
+addShippingInfo.js
+addToCart.js
+applyCode.js
+deleteItem.js
+onCheckout.js
+subQuantity.js
+
+
+3. presentation and container components:
+
+NavBar.js         NavBarContainer.js
+JerseyList.js     JerseyListContainer.js
+MyCart.js         MyCartContainer.js
+Promotion.js      PromotionContainer.js
+Checkout.js       CheckoutContainer.js

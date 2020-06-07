@@ -1,0 +1,9 @@
+As a customer, I want to browser the collection of jerseys so I can choose my favorite one and add to cart.
+
+As a customer, I want to be able to add, sub and delete the items so I can edit my cart.
+
+As a customer, I want to apply the coupon code so I can get discount for my order.
+
+As a customer, I want to input my billing and shipping information so I can pay and receive my order.
+
+As a customer, I want to see the confirmation information so I can make sure that the order was successfully placed.
