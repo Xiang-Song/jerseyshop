@@ -82,7 +82,7 @@ const reducer = (state = initState, action) => {
                     increaseCart: true
                 };
             }
-            else if (state.detailItem.customSize && state.detailItem.customSize !="Select a size") {
+            else if (state.detailItem.customSize && state.detailItem.customSize !== "Select a size") {
                 return {
                     ...state,
                     addedItems: [...state.addedItems, readyItem],
@@ -176,7 +176,7 @@ const reducer = (state = initState, action) => {
                 total: 0,
                 billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: '', cardNumber: '', expDate: '', securityCode: ''},
                 shipping: {sAddress: '', sState: '', sZip: ''},
-                confirmInfo: cName + ", thank you for your order, We will ship your order to " + cAddress+', ' + cState+ ', ' + cZip+ ', ' + 'with in 2 days.'
+                confirmInfo: cName + ", thank you for your order, We will ship your order to " + cAddress+', ' + cState+ ', ' + cZip+ ', with in 2 days.'
             }    
 
         default: {

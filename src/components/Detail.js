@@ -60,14 +60,14 @@ class Detail extends React.Component {
                             </select>
                         </div>
                     </div><br/><br/>
-                    <div style={{color: "red", display: this.props.increaseCart ? this.props.detailItem.customSize && this.props.detailItem.customSize !="Select a size" ? "none" : "block" : "none"}}>
+                    <div style={{color: "red", display: this.props.increaseCart ? this.props.detailItem.customSize && this.props.detailItem.customSize !=="Select a size" ? "none" : "block" : "none"}}>
                         !!! Please Select a Size !!!
                     </div><br/>
                     <button style={{width:"100%", background: "black", color: "white", fontSize: "20px"}}
                     onClick = {() => {this.props.addToCart(item.id, item.customName, item.customNumber, item.customSize)}}
                     >Add to Cart</button>
                     <br/><br/>
-                    <div style={{display: this.props.increaseCart && this.props.detailItem.customSize && this.props.detailItem.customSize !="Select a size" ? 'block' : 'none'}}>
+                    <div style={{display: this.props.increaseCart && this.props.detailItem.customSize && this.props.detailItem.customSize !=="Select a size" ? 'block' : 'none'}}>
                         <button style ={{ width: "18vw", background: "white", fontSize: "20px"}}><Link to = "/home" style = {{textDecoration: "none", color: "black"}}>Continue Shopping</Link></button>
                         <button style ={{ width: "18vw", background: "black", fontSize: "20px"}}><Link to = "/cart" style = {{textDecoration: "none", color: "white"}}> View Cart & Checkout</Link></button>
                     </div>

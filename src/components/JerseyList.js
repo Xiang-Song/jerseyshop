@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import onSelectItem from '../actions/onSelectItem';
 
 class JerseyList extends React.Component {
     
