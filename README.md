@@ -1,4 +1,26 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# JerseyShop
+### Author
+Xiang Song
+
+### Overview
+It is a simple shopping site based on react and react-redux that I learned from last few weeks. Customer could add selected items to cart, edit cart, input billing and shipping information and place order.
+
+### Details
+1. Customer could click add to cart to add items and the number at top right corner will show the items quantity in cart
+2. Customer could click MyCart to open the cart page. In this page, customer could delete selected items or editing the item quantity. Customer also could apply a coupon code if the order is qualified. 
+3. At cart page, Customer could click checkout button to the checkout page. In this page, customer could input billing and shipping information and place the order. After placing order, a confirmation and thank you information will displayed. 
+
+### Technologies
+React, React-redux, html, CSS
+
+### Future Improvement Ideas
+1. BIlling and shipping input validation
+2. More CSS work
+3. Single detail page for each merchandise
+4. Custom Jersey (name and number print) function
+5. Generate order number and provide order status checking
+
 
 ## Available Scripts
 
