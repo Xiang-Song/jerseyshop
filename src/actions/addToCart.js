@@ -1,9 +1,12 @@
 import { ADD_TO_CART } from '../constants/constants';
 
-const addToCart = (id) => {
+const addToCart = (id, customName, customNumber, customerSize) => {
     return {
         type: ADD_TO_CART,
-        id: id
+        id: id,
+        customName: customName, 
+        customNumber: customNumber, 
+        customerSize: customerSize
     };
     
 };

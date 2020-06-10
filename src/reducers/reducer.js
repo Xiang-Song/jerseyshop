@@ -16,28 +16,32 @@ import { ADD_TO_CART,
          APPLY_CODE, 
          CHECK_OUT,
          ADD_BILLING_INFO,
-         ADD_SHIPPING_INFO } from '../constants/constants.js';
+         ADD_SHIPPING_INFO,
+         SELECT_ITEM, 
+         ADD_CUSTOM_INFO} from '../constants/constants.js';
 
 const initState = {
     items:[
-        {id:1, title:"Manchester United Away Jersey", price:59.99, img:mua},
-        {id:2, title:"Manchester United Third Jersey", price:59.99, img:mut},
-        {id:3, title:"Real Madrid Away Jersey", price:69.99, img:rma},
-        {id:4, title:"Real Madrid Home Jersey", price:79.99, img:rmh},
-        {id:5, title:"Arsenal Away Jersey", price:59.99, img:asa},
-        {id:6, title:"Arsenal Home Jersey", price:69.99, img:ash},
-        {id:7, title:"LiverPool Home Jersey", price:69.99, img:liv},
-        {id:8, title:"Tottenham Home Jersey", price:59.99, img:ttn},
-        {id:9, title:"Chelsea Home Jersey", price:59.99, img:che},
-        {id:10, title:"Manchester City Home Jersey", price:59.99, img:mct}
+        {id:1, title:"Manchester United Away Jersey", brand: "Adidas", price:59.99, img:mua},
+        {id:2, title:"Manchester United Third Jersey", brand: "Adidas", price:59.99, img:mut},
+        {id:3, title:"Real Madrid Away Jersey", brand: "Adidas", price:69.99, img:rma},
+        {id:4, title:"Real Madrid Home Jersey", brand: "Adidas", price:79.99, img:rmh},
+        {id:5, title:"Arsenal Away Jersey", brand: "Adidas", price:59.99, img:asa},
+        {id:6, title:"Arsenal Home Jersey", brand: "Adidas", price:69.99, img:ash},
+        {id:7, title:"LiverPool Home Jersey", brand: "New Balance", price:69.99, img:liv},
+        {id:8, title:"Tottenham Home Jersey", brand: "Nike", price:59.99, img:ttn},
+        {id:9, title:"Chelsea Home Jersey", brand: "Nike", price:59.99, img:che},
+        {id:10, title:"Manchester City Home Jersey", brand: "Puma", price:59.99, img:mct}
     ],
+    detailItem:[],
     addedItems: [],
     total: 0,
     totalQuantity: 0,
     code: '',
     billing: {name: '', email:'', country: '', bAddress: '', bState: '', bZip: '', cardNumber: '', expDate: '', securityCode: ''},
     shipping: {sAddress: '', sState: '', sZip: ''},
-    confirmInfo: ''
+    confirmInfo: '',
+    increaseCart: false
 }
 
 const reducer = (state = initState, action) => {
@@ -46,27 +50,53 @@ const reducer = (state = initState, action) => {
                 originalTotal += item.price * item.quantity
             };
     switch (action.type) {
-        case ADD_TO_CART:
+        case SELECT_ITEM:
             let selectedItem = state.items.find(item => item.id === action.id);
-            let cartHasItem = state.addedItems.find(item => item.id === action.id);
+            selectedItem.quantity = 1;
+            return {
+                ...state,
+                detailItem: selectedItem,
+                increaseCart: false
+            }
+        
+        case ADD_CUSTOM_INFO:
+            return {
+                ...state,
+                detailItem: {...state.detailItem, [action.name]: action.value},
+                increaseCart: false,
+            }
+        case ADD_TO_CART:
+            let readyItem = {...state.detailItem};
+            readyItem.quantity = parseInt(state.detailItem.quantity);
+            readyItem.id = state.detailItem.id + state.detailItem.customName + state.detailItem.customNumber + state.detailItem.customSize ?
+            state.detailItem.id + state.detailItem.customName + state.detailItem.customNumber + state.detailItem.customSize :
+            state.detailItem.id;
+            let cartHasItem = state.addedItems.find(item => item.id === readyItem.id);
             if (cartHasItem) {
-                selectedItem.quantity += 1;
+                cartHasItem.quantity += readyItem.quantity;
                 return {
                     ...state,
-                    total: originalTotal + selectedItem.price,
-                    totalQuantity: state.totalQuantity + 1, 
-                    confirmInfo: ''
+                    total: originalTotal + readyItem.price * readyItem.quantity,
+                    totalQuantity: state.totalQuantity + readyItem.quantity, 
+                    confirmInfo: '',
+                    increaseCart: true
+                };
+            }
+            else if (state.detailItem.customSize && state.detailItem.customSize !="Select a size") {
+                return {
+                    ...state,
+                    addedItems: [...state.addedItems, readyItem],
+                    total: originalTotal + readyItem.price * readyItem.quantity,
+                    totalQuantity: state.totalQuantity + readyItem.quantity,
+                    confirmInfo: '',
+                    increaseCart: true
                 };
             }
             else {
-                selectedItem.quantity = 1;
                 return {
                     ...state,
-                    addedItems: [...state.addedItems, selectedItem],
-                    total: originalTotal + selectedItem.price,
-                    totalQuantity: state.totalQuantity + 1,
-                    confirmInfo: ''
-                };
+                    increaseCart: true
+                }
             }
         
         case DELETE_ITEM:

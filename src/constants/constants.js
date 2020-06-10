@@ -7,6 +7,8 @@ export const APPLY_CODE = "APPLY_CODE";
 export const CHECK_OUT = "CHECK_OUT";
 export const ADD_BILLING_INFO = "BILLING_INFO";
 export const ADD_SHIPPING_INFO = "PAYMENT_INFO";
+export const ADD_CUSTOM_INFO = "ADD_CUSTOM_INFO";
+export const SELECT_ITEM = "SELECT_ITEM";
 
 
 

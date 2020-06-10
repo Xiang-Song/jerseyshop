@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import onSelectItem from '../actions/onSelectItem';
 
 class JerseyList extends React.Component {
     
@@ -7,28 +9,27 @@ class JerseyList extends React.Component {
         var cardStyle = {
             width: "27%",
             height: "50%",
-            background: "beige",
-            margin: "20px"
+            background: "#f4f6ff",
+            margin: "20px",
+            fontWeight: "bold"
         }
         var imgStyle = {
             width: "100%",
         }
-        var shopStyle = {
-            display: "flex",
-            justifyContent: "space-between"
-        }
+        
         let itemList = this.props.items.map(item =>{
            
             return (
                 <div style={cardStyle} key={item.id}>
-                    <div>
+                    <div onClick = {()=>{this.props.onSelectItem(item.id)}}>
+                    <Link to = {'detail/' + item.id} style = {{textDecoration: "none", color: "black"}}>
                         <img src={item.img} alt={item.title} style={imgStyle} />
-                        <span>{item.title}</span>
+                        <p >{item.title}</p>
+                        <p style= {{display: "flex", justifyContent: "space-between"}}>
+                        <span>{item.brand}</span><span>${item.price}</span>
+                        </p>
                         
-                    </div>
-                    <div style={shopStyle}>
-                        <span>${item.price}</span>
-                        <button onClick = {()=>{this.props.addToCart(item.id)}}>Add to Cart</button>
+                    </Link>   
                     </div>
                 </div>
             )

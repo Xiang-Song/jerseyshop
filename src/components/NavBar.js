@@ -28,6 +28,7 @@ const NavBar = (props) => {
             <NavTab to="/cart" label="My Cart" />
             <p style={qtStyle}>{props.totalQuantity}</p>
           </div>
+          <hr/>
       </div>
     
   );
